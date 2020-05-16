@@ -23,6 +23,14 @@ class DataGovernanceSystem:
         time.sleep(0.1)
         self.ids.append(id_to_log)
 
+    def get_ids(self):
+        """Return the ids logged. Don't call this if the list is long!"""
+        return self.ids
+
+    def get_count(self):
+        """Return the count of ids logged."""
+        return len(self.ids)
+
     def reset(self):
         """Forget all ids that have been logged."""
         self.ids = []
@@ -32,14 +40,6 @@ class DataGovernanceSystem:
 
     def get_up_time(self):
         return time.time() - self.start_time
-
-    def get_ids(self):
-        """Return the ids logged. Don't call this if the list is long!"""
-        return self.ids
-
-    def get_count(self):
-        """Return the count of ids logged."""
-        return len(self.ids)
 
 class Record:
     """Wrap a "datum"; provides an id to be logged and a "black box" for the data."""

@@ -42,6 +42,9 @@ Double click `Spark-RayUDF.ipynb` to open the notebook and work through the self
 
 There is a second implementation (for completeness), where the UDF makes HTTP requests to a separate service, implemented with [Ray Serve](https://docs.ray.io/en/master/rayserve/overview.html). This service could be implemented in any technology; Ray is not explicitly used in the PySpark UDF for this example.
 
+To Run this variant, first evaluate all the cells in the [ray-serve/DataGovernanceServer.ipynb](ray-serve/DataGovernanceServer.ipynb) notebook. This runs the server.
+
+Then run the [ray-serve/Spark-RayServiceUDF.ipynb](ray-serve/Spark-RayServiceUDF.ipynb) notebook.
 
 
 ## For More about Ray

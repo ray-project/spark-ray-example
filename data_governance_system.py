@@ -18,10 +18,10 @@ class DataGovernanceSystem:
     def log(self, id_to_log):
         """
         Log record ids that have been processed.
-        Simulate an expensive operation by sleeping for 0.1 seconds
+        Returns the new count.
         """
-        time.sleep(0.1)
         self.ids.append(id_to_log)
+        return self.get_count()
 
     def get_ids(self):
         """Return the ids logged. Don't call this if the list is long!"""
@@ -82,7 +82,7 @@ def main():
     args = parser.parse_args()
 
     if args.local and not args.auto and not args.address:
-        pass
+        ray.init()
     elif args.auto and not args.local and not args.address:
         ray.init(address='auto')
     elif args.address and not args.local and not args.auto:

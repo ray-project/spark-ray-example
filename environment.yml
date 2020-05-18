@@ -1,0 +1,15 @@
+name: spark-ray
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pip
+  - numpy
+  - pytz
+  - pandas
+  - requests
+  - pyspark
+  - jupyterlab
+  - pip:
+    - ray[serve]==0.8.5
+

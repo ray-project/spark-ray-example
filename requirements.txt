@@ -1,0 +1,7 @@
+numpy
+pytz
+requests
+pandas
+pyspark
+jupyterlab
+ray[serve]==0.8.5

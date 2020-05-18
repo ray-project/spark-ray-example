@@ -6,6 +6,7 @@ import sys, time, argparse, json, requests
 import ray
 from ray import serve
 from ray.util import named_actors
+sys.path.append('..')
 from data_governance_system import DataGovernanceSystem, Record
 
 def init_service(dgs_server_name, serve_port):
@@ -144,7 +145,7 @@ def main():
     args = parser.parse_args()
 
     if args.local and not args.auto and not args.address:
-        pass
+        ray.init()
     elif args.auto and not args.local and not args.address:
         ray.init(address='auto')
     elif args.address and not args.local and not args.auto:

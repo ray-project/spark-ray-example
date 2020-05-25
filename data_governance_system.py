@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 A class that simulates a data governance server, which logs the ids of
 records observed in a data processing pipeline.
@@ -10,8 +11,7 @@ class DataGovernanceSystem:
     """
     Logs records by id. Example application: data governance.
     """
-    def __init__(self, name = 'DataGovernanceSystem'):
-        self.name = name
+    def __init__(self):
         self.ids = []
         self.start_time = time.time()
 
@@ -49,8 +49,12 @@ class Record:
     def __str__(self):
         return f'Record(record_id={self.record_id},data={self.data})'
 
-def do_test(dgs):
+def do_test(n):
     """Try out the DGS."""
+
+    # Retrieve the detached actor by name.
+    dgs = ray.util.get_actor('DataGovernanceSystem')
+
     n=10
     records = [Record(i, f'data for record {i}') for i in range(n)] # sample "records"
 
@@ -79,6 +83,8 @@ def main():
                         action='store_true')
     parser.add_argument('--address', metavar='str', type=str, default=None, nargs='?',
                         help='Join a Ray cluster at a specific address. Use this, --auto, or --local.')
+    parser.add_argument('N', metavar='N', type=int, default=100, nargs='?',
+        help='Number of records to use for the test')
     args = parser.parse_args()
 
     if args.local and not args.auto and not args.address:
@@ -91,8 +97,9 @@ def main():
         print('ERROR: must specify one of --local, --auto, or --address ADDRESS')
         sys.exit(1)
 
-    dgs = DataGovernanceSystem.remote(name = 'DataGovernanceSystem')
-    do_test(dgs)
+    dgs = DataGovernanceSystem.options(name='DataGovernanceSystem', detached=True).remote()
+
+    do_test(args.N)
 
 if __name__ == '__main__':
     main()
